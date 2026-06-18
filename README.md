@@ -27,12 +27,18 @@ Kritik stok, geciken sipariş gibi sistem olayları bildirim olarak listelenir.
 
 ---
 
+## Teknolojiler
+
+- Backend: **.NET 10 (ASP.NET Core)** + Entity Framework Core
+- Frontend: React + Vite
+- Veritabani: SQLite
+
+---
+
 ## Gereksinimler
 
-- PHP 8.3 veya uzeri
-- Composer
+- .NET 10 SDK
 - Node.js 18 veya uzeri
-- SQLite (varsayilan) veya MySQL
 
 ---
 
@@ -41,24 +47,12 @@ Kritik stok, geciken sipariş gibi sistem olayları bildirim olarak listelenir.
 ### Backend
 
 ```bash
-cd backend
-cp .env.example .env
-php artisan key:generate
-php artisan jwt:secret
-composer install
-php artisan migrate --seed
+cd backend-dotnet
+dotnet restore
 ```
 
-MySQL kullanilacaksa `.env` dosyasinda su satirlari duzenleyin:
-
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=textrack
-DB_USERNAME=root
-DB_PASSWORD=
-```
+Ek bir yapilandirma gerekmez. Uygulama ilk calistiginda veritabanini (`textrack.db`)
+otomatik olarak olusturur ve ornek veriyle doldurur.
 
 ### Frontend
 
@@ -76,11 +70,11 @@ Backend ve frontend ayri terminallerde baslatilir.
 **Backend:**
 
 ```bash
-cd backend
-php artisan serve
+cd backend-dotnet
+dotnet run
 ```
 
-API `http://localhost:8000` adresinde calisir.
+API `http://localhost:8000` adresinde calisir (migration + seed otomatik calisir).
 
 **Frontend:**
 
@@ -95,9 +89,11 @@ Uygulama `http://localhost:5173` adresinde acilir.
 
 ## Varsayilan Kullanicilar
 
-Seed islemi asagidaki hesaplari olusturur:
+Seed islemi asagidaki hesaplari olusturur (tum sifreler `password`):
 
 | Rol | E-posta | Sifre |
 |-----|---------|-------|
 | Yonetici | admin@textrack.com | password |
-| Operatör | operator@textrack.com | password |
+| Uretim Muduru | manager@textrack.com | password |
+| Depo Personeli | warehouse@textrack.com | password |
+| Kalite Kontrol | qc@textrack.com | password |
