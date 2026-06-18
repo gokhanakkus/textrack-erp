@@ -1,11 +1,5 @@
 # TexTrack ERP — .NET Backend
 
-Laravel (PHP) backend'inin **ASP.NET Core 10 (LTS)** karşılığı. Aynı REST API
-sözleşmesini, JSON şeklini (snake_case + Laravel sayfalama meta'sı) ve iş
-mantığını korur; mevcut React frontend hiçbir değişiklik yapmadan çalışır.
-
-## Teknolojiler
-
 | Katman | Teknoloji |
 |--------|-----------|
 | Framework | ASP.NET Core 10 (Controller API) |
@@ -13,7 +7,7 @@ mantığını korur; mevcut React frontend hiçbir değişiklik yapmadan çalı�
 | Auth | JWT Bearer (`Microsoft.AspNetCore.Authentication.JwtBearer`) |
 | Şifre | BCrypt.Net-Next |
 
-## Mimari (Laravel → .NET eşlemesi)
+## Mimari 
 
 ```
 Controllers/   ← app/Http/Controllers      (REST uçları, route'lar)
@@ -22,7 +16,7 @@ Repositories/  ← app/Repositories           (veri erişimi)
 Models/        ← app/Models                 (EF Core entity'leri)
 Dtos/          ← app/Http/Resources + Requests (yanıt/istek şekilleri + mapper)
 Data/          ← database/migrations + seeders (DbContext, migration, DbSeeder)
-Infrastructure/← Middleware + Validator + Pagination (Laravel davranışı taklidi)
+Infrastructure/← Middleware + Validator + Pagination
 Auth/          ← JWT üretimi + auth()->id() karşılığı (CurrentUser)
 ```
 
@@ -33,9 +27,9 @@ cd backend-dotnet
 dotnet run        # http://localhost:8000 — migration + seed otomatik çalışır
 ```
 
-İlk açılışta veritabanı (`textrack.db`) oluşturulur ve örnek veriyle doldurulur.
+İlk açılışta veritabanı (`textrack.db`) oluşturulur ve dummy data ile doldurulur.
 Frontend'in `vite.config.js` proxy'si zaten `http://localhost:8000`'e baktığından
-Laravel yerine bu backend'i çalıştırmak yeterli.
+backend'i çalıştırmak yeterli.
 
 ## Giriş bilgileri (seed)
 
@@ -49,5 +43,4 @@ Laravel yerine bu backend'i çalıştırmak yeterli.
 ## Notlar
 
 - Sıfırdan başlamak için `textrack.db` dosyasını silip tekrar `dotnet run` yapın.
-- JWT secret ve TTL `appsettings.json > Jwt` altında; Laravel `.env` ile aynı secret kullanılır.
-- Doğrulama hataları Laravel formatında döner: `422 { message, errors: { field: [...] } }`.
+- JWT secret ve TTL `appsettings.json > Jwt` altında; `.env` ile aynı secret kullanılır.
